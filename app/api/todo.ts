@@ -7,11 +7,16 @@ export const fetchTodos = async () => {
     return response.data;
 };
 
-export const addTodo = async (title: string) => {
-    const response = await axios.post(`${BASE_URL}/todos`, { title, completed: false });
+export const addTodo = async (text: string) => {
+    const response = await axios.post(`${BASE_URL}/todos`, { text, });
     return response.data;
 };
 
-export const deleteTodo = async (id: number) => {
+export const updateTodo = async (id: string, text: string, isCompleted: string) => {
+    const response = await axios.patch(`${BASE_URL}/todos`, { text, isCompleted });
+    return response.data;
+};
+
+export const deleteTodo = async (id: string) => {
     await axios.delete(`${BASE_URL}/todos/${id}`);
 };
