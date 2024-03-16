@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+import { revalidatePath } from "next/cache";
 import { addTodo, updateTodo } from "../../api/todo";
 
 interface Todo {
@@ -8,15 +9,21 @@ interface Todo {
   updatedAt: string;
 }
 
-const handleSubmit = () => {};
-
-const TodoForm = () => {
+export default function TodoForm() {
+  const handleSubmit = async (formData: FormData) => {
+    const todoText = formData.get("text")?.toString();
+    if (todoText) {
+      await addTodo(todoText);
+      revalidatePath("/");
+    }
+  };
   return (
     <form className="w-full max-w-sm mx-auto px-4 py-2" action={handleSubmit}>
       <div className="flex items-center border-b-2 border-teal-500 py-2">
         <input
           className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text"
+          name="text"
           placeholder="Add a task"
         />
         <button
@@ -28,6 +35,4 @@ const TodoForm = () => {
       </div>
     </form>
   );
-};
-
-export default TodoForm;
+}

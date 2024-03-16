@@ -8,7 +8,7 @@ export const fetchTodos = async () => {
 };
 
 export const addTodo = async (text: string) => {
-    const response = await axios.post(`${BASE_URL}/todos`, { text, });
+    const response = await axios.post(`${BASE_URL}/todos`, { text });
     return response.data;
 };
 
