@@ -1,6 +1,7 @@
 // import { useEffect, useState } from "react";
 import { revalidatePath } from "next/cache";
 import { addTodo, updateTodo } from "../../api/todo";
+import { useRef } from "react";
 
 interface Todo {
   id: number;
@@ -10,15 +11,18 @@ interface Todo {
 }
 
 export default function TodoForm() {
+  const ref = useRef<HTMLFormElement>(null);
   const handleSubmit = async (formData: FormData) => {
     const todoText = formData.get("text")?.toString();
     if (todoText) {
       await addTodo(todoText);
-      revalidatePath("/");
+      
+      ref.current?.reset();
+      //revalidatePath("/");
     }
   };
   return (
-    <form className="w-full max-w-sm mx-auto px-4 py-2" action={handleSubmit}>
+    <form className="w-full max-w-sm mx-auto px-4 py-2" ref={ref} action={handleSubmit}>
       <div className="flex items-center border-b-2 border-teal-500 py-2">
         <input
           className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { fetchTodos, deleteTodo } from "../../api/todo";
+import moment from "moment";
 
 interface Todo {
   id: string;
@@ -45,8 +46,9 @@ const TodoList = () => {
             className="ml-3 block text-gray-900"
           >
             <span className="text-lg font-medium">{todo.text}</span>
+            <br></br>
             <span className="text-sm font-light text-gray-500">
-              {todo.updatedAt}
+              {moment(todo.updatedAt).format("MMMM DD, YYYY, h:mm:ss A")}
             </span>
           </label>
         </div>
