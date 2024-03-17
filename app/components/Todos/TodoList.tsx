@@ -4,7 +4,7 @@ import { fetchTodos, deleteTodo } from "../../api/todo";
 import moment from "moment";
 
 interface Todo {
-  id: string;
+  _id: string;
   text: string;
   completed: boolean;
   updatedAt: string;
@@ -22,9 +22,9 @@ const TodoList = () => {
     loadTodos();
   }, []);
 
-  const handleDeleteTodo = async (id: string) => {
-    await deleteTodo(id);
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const handleDeleteTodo = async (_id: string) => {
+    await deleteTodo(_id);
+    setTodos(todos.filter((todo) => todo._id !== _id));
   };
 
   const handleEditTodo = async (id: string) => {}
@@ -32,17 +32,17 @@ const TodoList = () => {
   return (
     <ul className="divide-y divide-gray-200 px-4">
   {todos.map((todo) => (
-    <li key={todo.id} className="py-4">
+    <li key={todo._id} className="py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <input
-            id={`todo${todo.id}`}
-            name={`todo${todo.id}`}
+            id={`todo${todo._id}`}
+            name={`todo${todo._id}`}
             type="checkbox"
             className="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
           />
           <label
-            htmlFor={`todo${todo.id}`}
+            htmlFor={`todo${todo._id}`}
             className="ml-3 block text-gray-900"
           >
             <span className="text-lg font-medium">{todo.text}</span>
@@ -55,13 +55,13 @@ const TodoList = () => {
         <div className="flex">
           <button
             className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => handleEditTodo(todo.id)}
+            onClick={() => handleEditTodo(todo._id)}
           >
             Edit
           </button>
           <button
             className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => handleDeleteTodo(todo.id)}
+            onClick={() => handleDeleteTodo(todo._id)}
           >
             Delete
           </button>
