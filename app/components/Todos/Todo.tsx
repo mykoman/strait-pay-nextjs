@@ -24,11 +24,6 @@ const Todo = () => {
     loadTodos();
   }, []);
 
-  const handleDeleteTodo = async (id: number) => {
-    await deleteTodo(id);
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-16">
       <TodoHeader />
