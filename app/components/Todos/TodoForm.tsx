@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { addTodo, updateTodo } from "../../api/todo";
 import { useRef } from "react";
+import { useRouter } from "next/navigation";
 
 interface Todo {
   id: number;
@@ -12,12 +13,14 @@ interface Todo {
 
 export default function TodoForm() {
   const ref = useRef<HTMLFormElement>(null);
+  const router = useRouter();
   const handleSubmit = async (formData: FormData) => {
     const todoText = formData.get("text")?.toString();
     if (todoText) {
       await addTodo(todoText);
       
       ref.current?.reset();
+      router.push('/todos')
       //revalidatePath("/");
     }
   };
