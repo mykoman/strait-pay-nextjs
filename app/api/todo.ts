@@ -1,8 +1,10 @@
 import axios from "axios";
+import { Todo } from "../types/todos";
 
 const BASE_URL = "https://strait-pay-api-todo-3.onrender.com/api/v1";
+//const BASE_URL = "http://localhost:3003/api/v1/auth/login";
 
-export const fetchTodos = async () => {
+export const fetchTodos = async (): Promise<{ data: Todo[] }> => {
   const response = await axios.get(`${BASE_URL}/todos`);
   return response.data;
 };

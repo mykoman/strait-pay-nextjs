@@ -1,9 +1,16 @@
-import Todo from "../components/Todos/Todo";
+import { fetchTodos } from "../api/todo";
+import TodoForm from "../components/Todos/TodoForm";
+import TodoHeader from "../components/Todos/TodoHeader";
+import TodoList from "../components/Todos/TodoList";
 
-export default function Home() {
+export default async function Home() {
+
+  const todoData = await fetchTodos();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Todo />
-    </main>
+      <div className=" bg-white shadow-lg rounded-lg mt-8 px-4 py-8">
+      <TodoHeader />
+      <TodoForm />
+      <TodoList todos={todoData.data} />
+    </div>
   );
 }
