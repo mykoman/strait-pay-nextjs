@@ -1,9 +1,8 @@
 import axios from "axios";
 import { User } from "./../types/user";
-import { Router } from "next/router";
+import { getTokenCookie, setTokenCookie } from "../utils/auth";
 
 const BASE_URL = "https://strait-pay-api-todo-3.onrender.com/api/v1";
-// const BASE_URL = "http://localhost:3003/api/v1/auth/login";
 
 export const signIn = async ({ email, password }: Partial<User>) => {
   try {
@@ -12,15 +11,25 @@ export const signIn = async ({ email, password }: Partial<User>) => {
       password,
     });
     if (response?.data?.status === "success") {
-      //Router.('/profile')
+      const token = response.data.data.token;
+      console.log("token: " + token);
+      await setTokenCookie(token);
+      const retrieved = await getTokenCookie();
+      console.log("Token retrieved", retrieved);
     } else {
       console.log("An error occured!");
       // Handle errors
     }
-    console.log(response.data);
+    //revalidatePath("/todos");
     return response.data;
   } catch (error) {
-    console.log("caught", error);
+    console.error("Error during sign-in:", error);
+    // You can handle the error here, e.g., redirect to an error page or display an error message
+    // For example, if using Next.js, you can use the useRouter hook to navigate to an error page
+    //const router = useRouter();
+    //router.push("/error"); // Replace "/error" with the path to your error page
+    throw error; // Rethrow the error if needed
+    //console.log("caught", error.message);
   }
 };
 
