@@ -3,25 +3,30 @@ import { Todo } from "@/app/types/todos";
 import moment from "moment";
 import { useTransition } from "react";
 import { deleteTodoItem, updateTodoItem } from "@/app/api/actions";
-const TodoList = ({ todos }: { todos: Todo[] }) => {
+import Pagination from "../Pagination";
+const TodoList = ({ todos, pagination }: { todos: Todo[]; pagination: {} }) => {
   return (
-    <ul className="divide-y divide-gray-200 px-4">
-      {todos.map((todo) => (
-        <TodoListItem todo={todo} key={todo._id} />
-      ))}
-    </ul>
+    <div>
+      <ul className="divide-y divide-gray-200 px-4">
+        {todos.map((todo) => (
+          <TodoListItem todo={todo} key={todo._id} />
+        ))}
+      </ul>
+      <Pagination pagination={pagination} /> {/* Add Pagination component */}
+    </div>
   );
 };
 
 const TodoListItem = ({ todo }: { todo: Todo }) => {
-  
   const [isDeletePending, startDeleteTransition] = useTransition();
   const [isUpdatePending, startUpdateTransition] = useTransition();
-  
+
   return (
     <li
       key={todo._id}
-      className={`py-4 ${isDeletePending || isUpdatePending ? "opacity-30" : "opacity-100"}`}
+      className={`py-4 ${
+        isDeletePending || isUpdatePending ? "opacity-30" : "opacity-100"
+      }`}
     >
       <div className="flex items-center justify-between">
         <div className=" ">
@@ -32,9 +37,9 @@ const TodoListItem = ({ todo }: { todo: Todo }) => {
               type="checkbox"
               checked={todo.isCompleted}
               onChange={() => {
-                startUpdateTransition(()=>{
-                  updateTodoItem(todo._id, todo.isCompleted)
-                })
+                startUpdateTransition(() => {
+                  updateTodoItem(todo._id, todo.isCompleted);
+                });
               }}
               className="h-4 self-center  w-4 text-teal-600 focus:ring-teal-500 border-gray-300 rounded"
             />

@@ -1,8 +1,8 @@
-import { signUp } from "@/app/api/auth";
+import { signUpAction } from "@/app/api/actions";
 import Link from "next/link";
 import { useRef } from "react";
 
-export default function SignIn() {
+export default function SignUp() {
   const ref = useRef<HTMLFormElement>(null);
   const handleSubmit = async (formData: FormData) => {
     const email = formData.get("email")?.toString();
@@ -11,24 +11,18 @@ export default function SignIn() {
     const lastName = formData.get("password")?.toString();
     if (email && password && firstName && lastName) {
       console.log({ email, password, firstName, lastName });
-      const data = await signUp({ email, password, firstName, lastName });
+      const data = await signUpAction({ email, password, firstName, lastName });
       console.log("client", data);
       ref.current?.reset();
-      //router.push('/todos')
-      //revalidatePath("/");
     }
   };
 
   return (
-    <div>
-      <h1 className="text-3xl text-black text-center font-bold mb-8">
-        User Registration
+    <div className="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h1 className="text-2xl text-black text-center font-bold mb-4">
+        Register
       </h1>
-      <form
-        action={handleSubmit}
-        ref={ref}
-        className="w-full max-w-sm mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-      >
+      <form action={handleSubmit} ref={ref}>
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"

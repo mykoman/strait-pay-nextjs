@@ -7,10 +7,10 @@ import { signOutAction } from "../api/actions";
 
 export default function Nav() {
   const isTokenValid = getTokenCookie();
-  useEffect(() => {
-    console.log("isTokenValid", isTokenValid);
-  }, [isTokenValid]);
-  console.log("isTokenValid2222", isTokenValid);
+  // useEffect(() => {
+  //   console.log("isTokenValid", isTokenValid);
+  // }, [isTokenValid]);
+  // console.log("isTokenValid2222", isTokenValid);
   return (
     <nav className="bg-gray-300 py-4 px-6">
       <div className="max-w-7xl mx-auto">

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { addTodo, deleteTodo, updateTodo } from "./todo";
-import { signIn } from "./auth";
+import { signIn, signUp } from "./auth";
 import { User } from "../types/user";
 import { redirect } from "next/navigation";
 import { deleteTokenCookie } from "../utils/auth";
@@ -27,6 +27,16 @@ export const updateTodoItem = async (_id: string, isCompleted: boolean) => {
 
 export const signInAction = async ({ email, password }: Partial<User>) => {
   await signIn({ email, password });
+  redirect("/todos");
+};
+
+export const signUpAction = async ({
+  email,
+  password,
+  firstName,
+  lastName,
+}: User) => {
+  await signUp({ email, password, firstName, lastName });
   redirect("/todos");
 };
 

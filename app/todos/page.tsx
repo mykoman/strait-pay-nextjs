@@ -10,22 +10,25 @@ import { redirect, useRouter } from "next/navigation";
 export default async function Home() {
   const router = useRouter();
 
-  useEffect(() => {
-    const checkToken = async () => {
-      const token = await getTokenCookie();
-      if (!token) {
-        router.push("/sign-in"); // Use router for navigation
-      }
-    };
-    checkToken();
-  }, []);
+  // useEffect(() => {
+  //   const checkToken = async () => {
+  //     const token = await getTokenCookie();
+  //     if (!token) {
+  //       router.push("/sign-in"); // Use router for navigation
+  //     }
+  //   };
+  //   checkToken();
+  // }, []);
 
   const todoData = await fetchTodos();
   return (
     <div className=" bg-white shadow-lg rounded-lg mt-8 px-4 py-8">
       <TodoHeader />
       <TodoForm />
-      <TodoList todos={todoData.data} />
+      <TodoList
+        todos={todoData.data.todos}
+        pagination={todoData.data.pagination}
+      />
     </div>
   );
 }

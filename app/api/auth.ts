@@ -13,23 +13,16 @@ export const signIn = async ({ email, password }: Partial<User>) => {
     if (response?.data?.status === "success") {
       const token = response.data.data.token;
       console.log("token: " + token);
-      await setTokenCookie(token);
-      const retrieved = await getTokenCookie();
+      setTokenCookie(token);
+      const retrieved = getTokenCookie();
       console.log("Token retrieved", retrieved);
     } else {
       console.log("An error occured!");
-      // Handle errors
     }
-    //revalidatePath("/todos");
     return response.data;
   } catch (error) {
     console.error("Error during sign-in:", error);
-    // You can handle the error here, e.g., redirect to an error page or display an error message
-    // For example, if using Next.js, you can use the useRouter hook to navigate to an error page
-    //const router = useRouter();
-    //router.push("/error"); // Replace "/error" with the path to your error page
-    throw error; // Rethrow the error if needed
-    //console.log("caught", error.message);
+    throw error;
   }
 };
 
@@ -45,6 +38,14 @@ export const signUp = async ({
     email,
     password,
   });
-  console.log(response.data);
+  if (response?.data?.status === "success") {
+    const token = response.data.data.token;
+    console.log("token: " + token);
+    setTokenCookie(token);
+    const retrieved = await getTokenCookie();
+    console.log("Token retrieved", retrieved);
+  } else {
+    console.log("An error occured!");
+  }
   return response.data;
 };
