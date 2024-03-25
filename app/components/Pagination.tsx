@@ -1,6 +1,7 @@
 import React from "react";
 import { fetchTodos } from "../api/todo";
 import { revalidatePath } from "next/cache";
+import { fetchPaginatedTodos } from "../api/actions";
 //import { getTokenCookie } from "../utils/auth";
 
 interface Pagination {
@@ -28,7 +29,7 @@ const Pagination = ({ pagination }: { pagination: any }) => {
   const handleNext = async () => {
     if (currentPage < totalPages) {
       const skip = limit * currentPage;
-      revalidatePath("/todos");
+      await fetchPaginatedTodos(skip);
     }
   };
 

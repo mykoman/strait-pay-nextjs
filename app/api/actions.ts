@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { addTodo, deleteTodo, updateTodo } from "./todo";
+import { addTodo, deleteTodo, fetchTodos, updateTodo } from "./todo";
 import { signIn, signUp } from "./auth";
 import { User } from "../types/user";
 import { redirect } from "next/navigation";
@@ -52,4 +52,12 @@ export const signOutAction = async () => {
   //await signIn({ email, password });
   deleteTokenCookie();
   redirect("/sign-in");
+};
+
+export const fetchPaginatedTodos = async (skip: number) => {
+  const token = getTokenCookie()?.value;
+  if (token) {
+    fetchTodos({ skip, token });
+    redirect("/todos");
+  }
 };
