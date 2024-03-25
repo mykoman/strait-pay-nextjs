@@ -48,6 +48,7 @@ export default function SignIn() {
             name="password"
             placeholder="Password"
             required
+            minLength={6}
           />
         </div>
         <div className="flex items-center justify-between">

@@ -9,21 +9,28 @@ import { deleteTokenCookie, getTokenCookie } from "../utils/auth";
 
 export const createTodo = async (formData: FormData) => {
   const todoText = formData.get("text")?.toString();
-  if (todoText) {
-    await addTodo(todoText);
+  const token = getTokenCookie()?.value;
+  console.log("token11", token);
+  if (todoText && token) {
+    await addTodo(todoText, token);
     revalidatePath("/todos");
   }
 };
 
-export const deleteTodoItem = async (_id: string) => {
-  await deleteTodo(_id);
-  revalidatePath("/todos");
+export const deleteTodoItem = async (id: string) => {
+  const token = getTokenCookie()?.value;
+  if (token) {
+    await deleteTodo(id, token);
+    revalidatePath("/todos");
+  }
 };
 
 export const updateTodoItem = async (_id: string, isCompleted: boolean) => {
-  console.log("cookkkkkkkkkkkk", getTokenCookie());
-  await updateTodo(_id, !isCompleted);
-  revalidatePath("/todos");
+  const token = getTokenCookie()?.value;
+  if (token) {
+    await updateTodo({ id: _id, isCompleted: !isCompleted, token });
+    revalidatePath("/todos");
+  }
 };
 
 export const signInAction = async ({ email, password }: Partial<User>) => {
