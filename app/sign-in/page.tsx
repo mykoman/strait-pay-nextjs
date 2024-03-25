@@ -1,6 +1,3 @@
-"use client";
-import { Suspense, useEffect, useState } from "react";
-import Loading from "@/app/todos/loading";
 import SignInComponent from "../components/Auth/SignIn";
 
 const SignUp = () => {

@@ -1,8 +1,5 @@
-"use client";
 import Image from "next/image";
-import { useEffect } from "react";
-import { deleteTokenCookie, getTokenCookie } from "../utils/auth";
-import { redirect } from "next/navigation";
+import { getTokenCookie } from "../utils/auth";
 import { signOutAction } from "../api/actions";
 
 export default function Nav() {
@@ -23,7 +20,7 @@ export default function Nav() {
               height={24}
             />
           </div>
-          <div className="space-x-4">
+          {/* <div className="space-x-4">
             {isTokenValid && (
               <button
                 onClick={() => {
@@ -33,7 +30,7 @@ export default function Nav() {
                 Logout
               </button>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>

@@ -5,7 +5,7 @@ import { addTodo, deleteTodo, updateTodo } from "./todo";
 import { signIn, signUp } from "./auth";
 import { User } from "../types/user";
 import { redirect } from "next/navigation";
-import { deleteTokenCookie } from "../utils/auth";
+import { deleteTokenCookie, getTokenCookie } from "../utils/auth";
 
 export const createTodo = async (formData: FormData) => {
   const todoText = formData.get("text")?.toString();
@@ -21,6 +21,7 @@ export const deleteTodoItem = async (_id: string) => {
 };
 
 export const updateTodoItem = async (_id: string, isCompleted: boolean) => {
+  console.log("cookkkkkkkkkkkk", getTokenCookie());
   await updateTodo(_id, !isCompleted);
   revalidatePath("/todos");
 };

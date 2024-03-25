@@ -1,13 +1,13 @@
-import Cookies from "universal-cookie";
-const cookies = new Cookies(null);
+import { cookies } from "next/headers";
+
 export const setTokenCookie = (token: string) => {
-  cookies.set("token", token);
+  cookies().set("token", token, { httpOnly: true });
 };
 
 export const getTokenCookie = () => {
-  return cookies.get("token");
+  return cookies().get("token");
 };
 
 export const deleteTokenCookie = (): void => {
-  cookies.remove("token");
+  cookies().delete("token");
 };

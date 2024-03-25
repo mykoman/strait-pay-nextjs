@@ -4,6 +4,7 @@ import moment from "moment";
 import { useTransition } from "react";
 import { deleteTodoItem, updateTodoItem } from "@/app/api/actions";
 import Pagination from "../Pagination";
+// import Pagination from "../Pagination";
 const TodoList = ({ todos, pagination }: { todos: Todo[]; pagination: {} }) => {
   return (
     <div>
@@ -12,7 +13,7 @@ const TodoList = ({ todos, pagination }: { todos: Todo[]; pagination: {} }) => {
           <TodoListItem todo={todo} key={todo._id} />
         ))}
       </ul>
-      <Pagination pagination={pagination} /> {/* Add Pagination component */}
+      <Pagination pagination={pagination} />
     </div>
   );
 };

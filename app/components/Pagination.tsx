@@ -1,7 +1,36 @@
 import React from "react";
+import { fetchTodos } from "../api/todo";
+import { revalidatePath } from "next/cache";
 
+interface Pagination {
+  currentPage: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
 const Pagination = ({ pagination }: { pagination: any }) => {
-  const { currentPage, totalPages, hasNextPage, hasPrevPage } = pagination;
+  const { currentPage, totalPages, hasNextPage, hasPrevPage }: Pagination =
+    pagination;
+
+  let newPage = currentPage;
+  const limit = 10; // default from api
+
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      //const skip = limit * currentPage;
+      const skip = limit * currentPage - 2;
+      //await fetchTodos({skip})
+      revalidatePath("/todos");
+    }
+  };
+
+  const handleNext = async () => {
+    if (currentPage < totalPages) {
+      const skip = limit * currentPage;
+      await fetchTodos({ skip });
+      revalidatePath("/todos");
+    }
+  };
 
   return (
     <nav className="flex justify-center my-4">
@@ -9,7 +38,7 @@ const Pagination = ({ pagination }: { pagination: any }) => {
         <li className={`page-item ${hasPrevPage ? "" : "disabled"}`}>
           <button
             className="page-link px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800"
-            onClick={() => console.log("Previous page clicked")}
+            onClick={handlePrevious}
             disabled={!hasPrevPage}
           >
             Previous
@@ -23,7 +52,7 @@ const Pagination = ({ pagination }: { pagination: any }) => {
         <li className={`page-item ${hasNextPage ? "" : "disabled"}`}>
           <button
             className="page-link px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 hover:text-gray-800"
-            onClick={() => console.log("Next page clicked")}
+            onClick={handleNext}
             disabled={!hasNextPage}
           >
             Next

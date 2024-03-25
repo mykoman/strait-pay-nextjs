@@ -1,6 +1,5 @@
+"use client";
 import { signInAction } from "@/app/api/actions";
-import { signIn } from "@/app/api/auth";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { useRef } from "react";
 

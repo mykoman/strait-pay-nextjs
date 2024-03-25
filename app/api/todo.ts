@@ -6,12 +6,22 @@ const BASE_URL = "https://strait-pay-api-todo-3.onrender.com/api/v1";
 const token =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MDBmNGQ5OGNlMDMyNWViNGIzNjI5NSIsImVtYWlsIjoidGVzdEBtYWlsLmNvbSIsImlhdCI6MTcxMTMzODcxNCwiZXhwIjoxNzEzOTMwNzE0fQ.BI4BOsbiY7uGaxR3tZbG29aMkANYJbhA2fzloeJEShE";
 
-export const fetchTodos = async (): Promise<{
+export const fetchTodos = async ({
+  skip,
+  isCompleted,
+}: {
+  skip?: number;
+  isCompleted?: boolean;
+}): Promise<{
   data: { todos: Todo[]; pagination: {} };
 }> => {
   const response = await axios.get(`${BASE_URL}/todos`, {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+    params: {
+      skip,
+      isCompleted, // Include if needed
     },
   });
   console.log("todosssss", response.data);

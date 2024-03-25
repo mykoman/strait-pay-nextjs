@@ -14,8 +14,6 @@ export const signIn = async ({ email, password }: Partial<User>) => {
       const token = response.data.data.token;
       console.log("token: " + token);
       setTokenCookie(token);
-      const retrieved = getTokenCookie();
-      console.log("Token retrieved", retrieved);
     } else {
       console.log("An error occured!");
     }
