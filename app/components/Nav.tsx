@@ -17,8 +17,8 @@ export default function Nav() {
         <div className="flex justify-between items-center">
           <div className="text-white font-semibold text-xl">
             <Image
-              alt="StraitPay Logo"
-              src="https://www.straitpay.com/icons/logo.svg"
+              alt="Sleeky Programmers"
+              src="https://i.ibb.co/vYSr5sq/Logo-horizontal-Blue.png"
               width={100}
               height={24}
             />
