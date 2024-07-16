@@ -6,7 +6,7 @@ import Nav from "./components/Nav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "StraitPay Todo App by Michael Ogbuma",
+  title: "Todo App by Michael Ogbuma",
   description: "Built by Michael Ogbuma",
 };
 
